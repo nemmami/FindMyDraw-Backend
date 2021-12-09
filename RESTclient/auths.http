@@ -45,3 +45,21 @@ Content-Type: application/json
     "username":"amine",
     "password":"amine"
 }
+
+### Create the dev amine
+POST http://localhost:3000/auths/register
+Content-Type: application/json
+
+{
+    "username":"test",
+    "password":"test"
+}
+
+### Create the dev test1
+POST http://localhost:3000/auths/register
+Content-Type: application/json
+
+{
+    "username":"test1",
+    "password":"test1"
+}

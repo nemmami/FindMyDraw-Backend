@@ -81,8 +81,12 @@ class Users {
 
     const newitem = {
       username: body.username,
-      role: "regular",
+      //role: "regular",
       password: hashedPassword,
+      //host: false,
+      //roomId: null,
+      socketId: "",
+      //win: false
     };
     items.push(newitem);
     serialize(this.jsonDbPath, items);

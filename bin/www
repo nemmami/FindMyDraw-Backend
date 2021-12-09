@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('mymoovies:server');
+var debug = require('debug')('findmydraw:server');
 var http = require('http');
 
 /**
