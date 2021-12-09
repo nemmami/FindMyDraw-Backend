@@ -32,7 +32,12 @@ let http = require("http").createServer(app);
 /**
  * @type {Socket}
  */
-const io = require("socket.io")(http);
+const io = require("socket.io")(http, {
+    cors: {
+        origin: "http://localhost/", //Client here is localhost:80
+        methods: ["GET", "POST"]
+    }
+});
 
 io.on('connection', (socket) => {
     console.log(`[connection] ${socket.id}`);
@@ -57,6 +62,8 @@ io.on('connection', (socket) => {
     
 });
 
-//http.listen(8080);
+http.listen(3000, () => {
+    console.log('Socket server listening on *:3000');
+})
 
 module.exports = app;
