@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:3000
+
+### Create a room
+POST {{baseUrl}}/rooms/
+Content-Type: application/json
+
+### Get all room
+GET {{baseUrl}}/rooms
+Content-Type: application/json
+
+### Get a room by his id
+GET {{baseUrl}}/rooms/mzo232vaf
+Content-Type: application/json
+
+### Get all players of a room
+GET {{baseUrl}}/rooms/allPlayers/c5kmp2mfz
+Content-Type: application/json
+
+### Update idRoom of a user
+PUT {{baseUrl}}/rooms/updateRoomId/test1/
+Content-Type: application/json
+
+{
+    "roomId":"mzo232vaf"
+}
+
+### add a player
+PUT {{baseUrl}}/rooms/addPlayer/jg7stls14/hmidoush
+Content-Type: application/json
+
+
+### Update nbrRound of a room
+PUT {{baseUrl}}/rooms/updateNbRound/p25jztx3n
+Content-Type: application/json
+
+{
+    "nbRound":2
+}

@@ -48,7 +48,8 @@ io.on('connection', (socket) => {
         console.log("join:", data.id , data.username);
 
         roomModel.addPlayer(data.id, data.username);
-        socket.broadcast.emit('broadcast',formatMessage(data.username," a rejoint la partie"));
+        //socket.broadcast.emit('broadcast',formatMessage(data.username," a rejoint la partie"));
+        //io.to(socket.id).emit('join room', room.id)
 
         io.emit('playersList', {
             players : roomModel.getAllPlayers()
