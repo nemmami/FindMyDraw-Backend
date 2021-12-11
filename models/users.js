@@ -98,9 +98,9 @@ class Users {
    * @param {number} id - id of the item to be deleted
    * @returns {object} the item that was deleted or undefined if the delete operation failed
    */
-  deleteOne(id) {
+  deleteOne(username) {
     const items = parse(this.jsonDbPath, this.defaultItems);
-    const foundIndex = items.findIndex((item) => item.id == id);
+    const foundIndex = items.findIndex((item) => item.username === username);
     if (foundIndex < 0) return;
     const itemRemoved = items.splice(foundIndex, 1);
     serialize(this.jsonDbPath, items);
@@ -128,6 +128,30 @@ class Users {
 
     serialize(this.jsonDbPath, items);
     return updateditem;
+  }
+
+  changeSocketIdRoomId(username, socketId, roomId) {
+    const items = parse(this.jsonDbPath, this.defaultItems);
+    let user = this.getOneByUsername(username);
+    
+    let usernameU = user.username;
+    let passwordU = user.password;
+    let socketIdU = socketId;
+    let roomIdU = roomId;
+
+    let item = {
+      username: usernameU,
+      password: passwordU,
+      socketId: socketIdU,
+      roomId: roomIdU
+    };
+
+    //this.deleteOne(username);
+    const foundIndex = items.findIndex((item) => item.username === username);
+    if (foundIndex < 0) return;
+    items[foundIndex] = item;
+    serialize(this.jsonDbPath, items);
+    return item;
   }
 
  /**

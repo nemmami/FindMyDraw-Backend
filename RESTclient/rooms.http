@@ -1,11 +1,11 @@
 @baseUrl = http://localhost:3000
 
 ### Create a room
-POST {{baseUrl}}/rooms/
+POST {{baseUrl}}/rooms/6
 Content-Type: application/json
 
 ### Get all room
-GET {{baseUrl}}/rooms
+GET {{baseUrl}}/rooms/
 Content-Type: application/json
 
 ### Get a room by his id

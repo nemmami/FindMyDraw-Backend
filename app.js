@@ -44,15 +44,19 @@ io.on('connection', (socket) => {
 
     socket.on('joinRoom', (data) => {
         let room = roomModel.getOne(data.id);
-        //let user = userModel.getOneByUsername(username);
-        console.log("join:", data.id , data.username);
+        
+        userModel.changeSocketIdRoomId(data.username, socket.id, data.id);
+        console.log(`[create room ] - ${data.id} - ${data.username}`);
+
+        console.log("join:", data.id, data.username);
 
         roomModel.addPlayer(data.id, data.username);
         //socket.broadcast.emit('broadcast',formatMessage(data.username," a rejoint la partie"));
-        //io.to(socket.id).emit('join room', room.id)
+        socket.join(data.id);
+        io.to(socket.id).emit('join room', room.id)
 
         io.emit('playersList', {
-            players : roomModel.getAllPlayers()
+            rooms : roomModel.getAllPlayers()
         });
 
     });

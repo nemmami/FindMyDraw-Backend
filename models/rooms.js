@@ -43,7 +43,6 @@ class Rooms {
     return items[foundIndex];
   }
 
-
   /**
    * Delete a item in the DB and return the deleted item
    * @param {number} id - id of the item to be deleted
@@ -86,11 +85,11 @@ class Rooms {
    * @param {object} body - it contains all required data to create a item
    * @returns {object} the item that was created (with id)
    */
-  createRoom() {
+  createRoom(nbRound) {
     const items = parse(this.jsonDbPath, this.defaultItems);
     const room = {
       id: this.roomId(),
-      nbRound: 0,
+      nbRound: nbRound,
       players: [],
       host: "",
       winner: "",
@@ -107,27 +106,36 @@ class Rooms {
   }
 
   addPlayer(id, username) {
-    let user = this.getOne(id);
-    // on recup toutes les info sur la room
-    let idR = user.id;
-    let nbRoundR = user.nbRound;
-    let playersR = user.players;
-    let hostR = user.host;
-    let winnerR = user.winner;
-    let openR = user.open;
+    let room = this.getOne(id);
+    let tabRoom = room.players;
 
-    let tab = user.players;
-    // donner un host à la room
-    if(tab.length === 0)
-      hostR = username;
+    let present = false;
+    tabRoom.forEach(function (e) {
+      //console.log(e);
+      if (e === username) present = true;
+    });
 
-    // on ajoute le jouer dans la room
-    tab.push(username);
-    playersR = tab;
+    if (present === false) {
+      // on recup toutes les info sur la room
+      let idR = room.id;
+      let nbRoundR = room.nbRound;
+      let playersR = room.players;
+      let hostR = room.host;
+      let winnerR = room.winner;
+      let openR = room.open;
 
-    // on met à jour la room
-    this.deleteOne(id);
-    return this.addRoomById(idR, nbRoundR, playersR, hostR, winnerR, openR);
+      let tab = room.players;
+      // donner un host à la room
+      if (tab.length === 0) hostR = username;
+
+      // on ajoute le jouer dans la room
+      tab.push(username);
+      playersR = tab;
+
+      // on met à jour la room
+      this.deleteOne(id);
+      return this.addRoomById(idR, nbRoundR, playersR, hostR, winnerR, openR);
+    }
   }
 
   // afficher tous les user de la room
@@ -139,15 +147,14 @@ class Rooms {
   getAllRoomOpen() {
     const items = parse(this.jsonDbPath, this.defaultItems);
     const newTab = [];
-    items.forEach(function(e){
-      if(e.open === true)
-        newTab.push(e);
+    items.forEach(function (e) {
+      if (e.open === true) newTab.push(e);
     });
     console.log(newTab);
     return newTab;
   }
 
-  addRoomById(id,nbRound,players, host, winner, open) {
+  addRoomById(id, nbRound, players, host, winner, open) {
     const items = parse(this.jsonDbPath, this.defaultItems);
     const room = {
       id: id,
