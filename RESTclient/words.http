@@ -1,0 +1,13 @@
+@baseUrl = http://localhost:3000
+
+### add a word
+POST {{baseUrl}}/words/banane
+Content-Type: application/json
+
+###
+GET {{baseUrl}}/words/1
+Content-Type: application/json 
+
+###
+GET {{baseUrl}}/words
+Content-Type: application/json 

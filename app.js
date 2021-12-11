@@ -7,6 +7,7 @@ var logger = require("morgan");
 var authsRouter = require("./routes/auths");
 var usersRouter = require("./routes/users");
 var roomsRouter = require("./routes/rooms");
+var wordsRouter = require("./routes/words");
 
 var app = express();
 
@@ -19,12 +20,15 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/auths", authsRouter);
 app.use("/users", usersRouter);
 app.use("/rooms", roomsRouter);
+app.use("/words", wordsRouter);
 
 //const {addPlayer, playerLeave, playersList} = require("./models/players");
 const { Rooms } = require("./models/rooms");
 const { Users } = require("./models/users");
+//const { Words } = require("./models/words");
 const userModel = new Users();
 const roomModel = new Rooms();
+//const wordModel = new Words();
 
 
 let http = require("http").createServer(app);
