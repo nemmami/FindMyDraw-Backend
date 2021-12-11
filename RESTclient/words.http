@@ -7,3 +7,7 @@ Content-Type: application/json
 ###
 GET {{baseUrl}}/words/1
 Content-Type: application/json 
+
+###
+GET {{baseUrl}}/words
+Content-Type: application/json 

@@ -24,15 +24,6 @@ class Words{
   }
 
   /**
-   * Returns all items
-   * @returns {Array} Array of items
-   */
-   getAll() {
-    const words = parse(this.jsonDbPath, this.defaultItems);
-    return words;
-  }
-
-  /**
    * Returns the item identified by id
    * @param {number} id - id of the item to find
    * @returns {object} the item found or undefined if the id does not lead to a item
@@ -63,20 +54,15 @@ class Words{
     return newWord;
   }
 
-  /**
-   * Delete a pizza in the DB and return the deleted pizza
-   * @param {number} id - id of the pizza to be deleted
-   * @returns {object} the pizza that was deleted or undefined if the delete operation failed
-   */
-  deleteOne(id) {
-    const words = parse(this.jsonDbPath, this.defaultPizzas);
-    const foundIndex = words.findIndex((word) => word.id == id);
-    if (foundIndex < 0) return;
-    const itemRemoved = words.splice(foundIndex, 1);
-    serialize(this.jsonDbPath, words);
 
-    return itemRemoved[0];
+  getOneRandom() {
+    const words = parse(this.jsonDbPath, this.defaultItems);
+ 
+    let randomId = Math.floor(Math.random() * (words.length));
+
+    return words[randomId];
   }
+ 
 
 }
 

@@ -15,11 +15,10 @@ router.post("/:word", async function(req, res){
 });
 
 //get a word
-router.get("/:id", async function(req, res){
-  const word = wordModel.getOne(req.params.id);
-  if(!word) return res.status(404).end();
+router.get("/", async function(req, res){
+   
 
-  return res.json(word);
+  return res.json(wordModel.getOneRandom());
 } );
 
 module.exports = router;
