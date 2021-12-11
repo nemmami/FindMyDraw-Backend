@@ -55,6 +55,10 @@ io.on('connection', (socket) => {
         socket.join(data.id);
         io.to(socket.id).emit('join room', room.id)
 
+        if(room.players.length > 1) {
+            io.to(room.id).emit('start game', room.players);
+        }
+
         io.emit('playersList', {
             rooms : roomModel.getAllPlayers()
         });
