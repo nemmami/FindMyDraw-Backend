@@ -71,7 +71,12 @@ io.on('connection', (socket) => {
 
     socket.on('get rooms', () => {
         io.to(socket.id).emit('list rooms', roomModel.getAllRoomOpen());
-    })
+    });
+
+    socket.on('playerList', (id) => {
+        let room = roomModel.getOne(id);
+        io.to(socket.id).emit('list players', room.players);
+    });
     
 });
 
