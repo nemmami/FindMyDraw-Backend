@@ -75,6 +75,7 @@ io.on('connection', (socket) => {
 
     socket.on('playerList', (id) => {
         let room = roomModel.getOne(id);
+        console.log(room.players);
         io.to(socket.id).emit('list players', room.players);
     });
     
