@@ -112,7 +112,8 @@ io.on('connection', (socket) => {
     socket.on('chat', (txt) => {
         console.log(txt);
         const username = userModel.getUserBySocketId(socket.id);
-        io.emit('message', (`${username} : ${txt}`));
+        console.log(username);
+        io.emit('message', (`${username.username} : ${txt}`));
     });
 
     /*
