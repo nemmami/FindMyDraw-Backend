@@ -25,10 +25,10 @@ app.use("/words", wordsRouter);
 //const {addPlayer, playerLeave, playersList} = require("./models/players");
 const { Rooms } = require("./models/rooms");
 const { Users } = require("./models/users");
-//const { Words } = require("./models/words");
+const { Words } = require("./models/words");
 const userModel = new Users();
 const roomModel = new Rooms();
-//const wordModel = new Words();
+const wordModel = new Words();
 
 
 let http = require("http").createServer(app);
@@ -71,6 +71,42 @@ io.on('connection', (socket) => {
 
     });
 
+    /*//lancer la partie
+    socket.on('start-game', () => {
+
+        //socket recup un mot aléatoire
+        socket.on('find-image', () =>{
+            let word = wordModel.getOneRandom();
+            
+            io.emit('get-word',{word});
+        });
+
+        //Socket  reset le timer
+        socket.on('launch-timer', () => {
+            io.emit('reset-timer');
+        })
+    
+        //Socket round
+        socket.on('launch-round', () => {
+            io.emit('increment-round');
+        })
+    
+        //socket fin de partie
+        socket.on('launch-endGame', () => {
+            io.emit('end-game',users);
+        })
+    
+        //socket si reponse correct
+        socket.on('launch-goodAnswer', (userId) => {
+            users.forEach(element => {
+            if(element.id === userId){
+                element.correctAnswers++;
+            }
+            });
+      });
+    });
+ */
+    
     socket.on('get rooms', () => {
         io.to(socket.id).emit('list rooms', roomModel.getAllRoomOpen());
     });
