@@ -4,7 +4,7 @@ const { Users } = require("./users");
 
 const jsonDbPath = __dirname + "/../data/rooms.json";
 
-const defaultItems = [{}];
+const defaultItems = [];
 
 class Rooms {
   constructor(dbPath = jsonDbPath, items = defaultItems) {
@@ -85,10 +85,11 @@ class Rooms {
    * @param {object} body - it contains all required data to create a item
    * @returns {object} the item that was created (with id)
    */
-  createRoom(nbRound) {
+  createRoom(nbRound, nbPlayers) {
     const items = parse(this.jsonDbPath, this.defaultItems);
     const room = {
       id: this.roomId(),
+      nbPlayers: nbPlayers,
       nbRound: nbRound,
       players: [],
       host: "",
@@ -118,6 +119,7 @@ class Rooms {
     if (present === false) {
       // on recup toutes les info sur la room
       let idR = room.id;
+      let nbPlayersR = room.nbPlayers
       let nbRoundR = room.nbRound;
       let playersR = room.players;
       let hostR = room.host;
@@ -134,7 +136,7 @@ class Rooms {
 
       // on met à jour la room
       this.deleteOne(id);
-      return this.addRoomById(idR, nbRoundR, playersR, hostR, winnerR, openR);
+      return this.addRoomById(idR, nbPlayersR, nbRoundR, playersR, hostR, winnerR, openR);
     }
   }
 
@@ -154,10 +156,11 @@ class Rooms {
     return newTab;
   }
 
-  addRoomById(id, nbRound, players, host, winner, open) {
+  addRoomById(id, nbPlayers, nbRound, players, host, winner, open) {
     const items = parse(this.jsonDbPath, this.defaultItems);
     const room = {
       id: id,
+      nbPlayers: nbPlayers,
       nbRound: nbRound,
       players: players,
       host: host,

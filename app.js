@@ -71,6 +71,7 @@ io.on('connection', (socket) => {
 
     });
 
+
     /*//lancer la partie
     socket.on('start-game', () => {
 
@@ -107,6 +108,14 @@ io.on('connection', (socket) => {
     });
  */
     
+
+    socket.on('chat', (txt) => {
+        console.log(txt);
+        const username = userModel.getUserBySocketId(socket.id);
+        io.emit('message', (`${username} : ${txt}`));
+    });
+
+    /*
     socket.on('get rooms', () => {
         io.to(socket.id).emit('list rooms', roomModel.getAllRoomOpen());
     });
@@ -117,6 +126,7 @@ io.on('connection', (socket) => {
         console.log(room.players);
         io.to(socket.id).emit('list players', room.players);
     });
+    */
     
 });
 
