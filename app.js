@@ -55,7 +55,9 @@ io.on('connection', (socket) => {
         console.log("join:", data.id, data.username);
 
         roomModel.addPlayer(data.id, data.username);
-        //socket.broadcast.emit('broadcast',formatMessage(data.username," a rejoint la partie"));
+
+        socket.broadcast.emit("broadcast", `${data.username} a rejoint la partie`);
+        
         socket.join(data.id);
         io.to(socket.id).emit('join room', room.id)
 
@@ -64,7 +66,7 @@ io.on('connection', (socket) => {
         }
 
         io.emit('playersList', {
-            rooms : roomModel.getAllPlayers()
+            rooms : roomModel.getAllPlayers(data.id)
         });
 
     });
@@ -73,6 +75,7 @@ io.on('connection', (socket) => {
         io.to(socket.id).emit('list rooms', roomModel.getAllRoomOpen());
     });
 
+    
     socket.on('playerList', (id) => {
         let room = roomModel.getOne(id);
         console.log(room.players);
