@@ -8,11 +8,11 @@ const userModel = new Users();
 //const { authorize } = require("../utils/authorize");
 
 //create a room 
-router.post("/:nbRound", async function(req, res) {
+router.post("/:nbRound/:nbPlayers", async function(req, res) {
     if (!req.body)
         return res.status(400).end();
     
-    const room = roomModel.createRoom(req.params.nbRound);
+    const room = roomModel.createRoom(req.params.nbRound, req.params.nbPlayers);
     
     return res.json(room)
 });
