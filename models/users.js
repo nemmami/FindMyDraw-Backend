@@ -154,6 +154,13 @@ class Users {
     return item;
   }
 
+  getUserBySocketId(socketIdentifiant) {
+    const items = parse(this.jsonDbPath, this.defaultItems);
+    const foundIndex = items.findIndex((item) => item.socketId === socketIdentifiant);
+    if (foundIndex < 0) return;
+    return items[foundIndex];
+  }
+
  /**
    * Authenticate a user and generate a token if the user credentials are OK
    * @param {*} username
