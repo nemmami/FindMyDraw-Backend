@@ -113,10 +113,10 @@ io.on('connection', (socket) => {
        
      socket.on('canvas', (data) => socket.broadcast.emit('drawing', data));
     //socket canvas
-    socket.on('canvas', (data) => {
-        console.log(data);
-        io.emit('drawing', data);
-    }); 
+    socket.on('mouse', (data) => {
+        console.log(data.x, data.y);
+        io.emit('mouse', data);
+    });
 
     socket.on('chat', (txt) => {
         console.log(txt);
