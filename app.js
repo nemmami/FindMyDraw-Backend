@@ -72,26 +72,27 @@ io.on('connection', (socket) => {
     });
 
 
-    /*//lancer la partie
+    //lancer la partie
     socket.on('start-game', () => {
 
         //socket recup un mot aléatoire
-        socket.on('find-image', () =>{
+        socket.on('find-word', () =>{
             let word = wordModel.getOneRandom();
-            
+            console.log(word);
             io.emit('get-word',{word});
         });
 
         //Socket  reset le timer
-        socket.on('launch-timer', () => {
+        socket.on('start-timer', () => {
             io.emit('reset-timer');
         })
     
         //Socket round
-        socket.on('launch-round', () => {
-            io.emit('increment-round');
+        socket.on('start-round', () => {
+            io.emit('get-round');
         })
     
+        /*
         //socket fin de partie
         socket.on('launch-endGame', () => {
             io.emit('end-game',users);
@@ -104,10 +105,13 @@ io.on('connection', (socket) => {
                 element.correctAnswers++;
             }
             });
-      });
+      });*/
     });
- */
-    
+ 
+
+
+       
+     socket.on('canvas', (data) => socket.broadcast.emit('drawing', data));
     //socket canvas
     socket.on('mouse', (data) => {
         console.log(data.x, data.y);
