@@ -109,9 +109,9 @@ io.on('connection', (socket) => {
  */
     
     //socket canvas
-    socket.on('canvas', (data) => {
-        console.log(data);
-        io.emit('drawing', data);
+    socket.on('mouse', (data) => {
+        console.log(data.x, data.y);
+        io.emit('mouse', data);
     });
 
     socket.on('chat', (txt) => {
