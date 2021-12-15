@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { parse, serialize } = require("../utils/json");
-//var escape = require("escape-html");
+var escape = require("escape-html");
 const bcrypt = require('bcrypt');
 const jwtSecret = "ilovemydraw!";
 const LIFETIME_JWT = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
@@ -152,6 +152,13 @@ class Users {
     items[foundIndex] = item;
     serialize(this.jsonDbPath, items);
     return item;
+  }
+
+  getUserBySocketId(socketIdentifiant) {
+    const items = parse(this.jsonDbPath, this.defaultItems);
+    const foundIndex = items.findIndex((item) => item.socketId === socketIdentifiant);
+    if (foundIndex < 0) return;
+    return items[foundIndex];
   }
 
  /**

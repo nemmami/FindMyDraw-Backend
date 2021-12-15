@@ -25,11 +25,10 @@ app.use("/words", wordsRouter);
 //const {addPlayer, playerLeave, playersList} = require("./models/players");
 const { Rooms } = require("./models/rooms");
 const { Users } = require("./models/users");
-//const { Words } = require("./models/words");
+const { Words } = require("./models/words");
 const userModel = new Users();
 const roomModel = new Rooms();
-//const wordModel = new Words();
-
+const wordModel = new Words();
 
 let http = require("http").createServer(app);
 
@@ -68,20 +67,62 @@ io.on('connection', (socket) => {
         io.emit('playersList', {
             rooms : roomModel.getAllPlayers(data.id)
         });
-
     });
 
-    socket.on('get rooms', () => {
-        io.to(socket.id).emit('list rooms', roomModel.getAllRoomOpen());
-    });
 
+    //lancer la partie
+    socket.on('start-game', () => {
+
+        //socket recup un mot aléatoire
+        socket.on('find-word', () =>{
+            let word = wordModel.getOneRandom();
+            console.log(word);
+            io.emit('get-word',{word});
+        });
+
+        //Socket  reset le timer
+        socket.on('start-timer', () => {
+            io.emit('reset-timer');
+        })
     
-    socket.on('playerList', (id) => {
-        let room = roomModel.getOne(id);
-        console.log(room.players);
-        io.to(socket.id).emit('list players', room.players);
-    });
+        //Socket round
+        socket.on('start-round', () => {
+            io.emit('get-round');
+        })
     
+        /*
+        //socket fin de partie
+        socket.on('launch-endGame', () => {
+            io.emit('end-game',users);
+        })
+    
+        //socket si reponse correct
+        socket.on('launch-goodAnswer', (userId) => {
+            users.forEach(element => {
+            if(element.id === userId){
+                element.correctAnswers++;
+            }
+            });
+        });
+        */
+    });
+ 
+    //socket.on('canvas', (data) => socket.broadcast.emit('drawing', data));
+
+    //socket canvas
+    socket.on('mouse', (data) => {
+        console.log(data.x, data.y);
+        io.emit('mouse', data);
+    });
+
+    //socket chat
+    socket.on('chat', (txt) => {
+        console.log(txt);
+        const username = userModel.getUserBySocketId(socket.id);
+        console.log(username);
+        io.emit('message', (`${username.username} : ${txt}`));
+    });
+
 });
 
 http.listen(5000, () => {
