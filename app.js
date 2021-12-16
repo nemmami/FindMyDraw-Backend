@@ -120,7 +120,7 @@ io.on('connection', (socket) => {
         console.log(txt);
         const username = userModel.getUserBySocketId(socket.id);
         console.log(username);
-        io.emit('message', (`${username.username} : ${txt}`));
+        io.emit('message', userModel.formatMessage(username.username, txt));
     });
 
 });
