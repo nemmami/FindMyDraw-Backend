@@ -221,6 +221,13 @@ class Users {
     authenticatedUser.token = token;
     return authenticatedUser;
   }
+
+     formatMessage(username, txt){
+      return{
+          username,
+          txt
+      }
+  }
 }
 
 module.exports = { Users };
