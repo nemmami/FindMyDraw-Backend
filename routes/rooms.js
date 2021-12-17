@@ -3,12 +3,13 @@ var express = require("express");
 var router = express.Router();
 const { Rooms } = require("../models/rooms");
 const { Users } = require("../models/users");
+const { authorize } = require("../utils/authorize");
 const roomModel = new Rooms();
 const userModel = new Users();
 //const { authorize } = require("../utils/authorize");
 
 //create a room 
-router.post("/:nbRound/:nbPlayers", async function(req, res) {
+router.post("/:nbRound/:nbPlayers", authorize, async function(req, res) {
     if (!req.body)
         return res.status(400).end();
     
