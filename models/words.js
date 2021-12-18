@@ -3,12 +3,14 @@ var escape = require("escape-html");
 
 const jsonDbPath = __dirname + "/../data/words.json";
 
-const defaultItems = [{
-  id: 1,
-  word: "test"
-}];
+const defaultItems = [
+  {
+    id: 1,
+    word: "test",
+  },
+];
 
-class Words{
+class Words {
   constructor(dbPath = jsonDbPath, words = defaultItems) {
     this.jsonDbPath = dbPath;
     this.defaultItems = words;
@@ -28,7 +30,7 @@ class Words{
    * @param {number} id - id of the item to find
    * @returns {object} the item found or undefined if the id does not lead to a item
    */
-   getOne(id) {
+  getOne(id) {
     const words = parse(this.jsonDbPath, this.defaultItems);
     const foundIndex = words.findIndex((item) => item.id == id);
     if (foundIndex < 0) return;
@@ -37,9 +39,9 @@ class Words{
   }
 
   /**
-   * Add a pizza in the DB and returns the added pizza (containing a new id)
-   * @param {object} body - it contains all required data to create a pizza
-   * @returns {object} the pizza that was created (with id)
+   * Add a word in the DB and returns the added word (containing a new id)
+   * @param {object} body - it contains all required data to create a word
+   * @returns {object} the word that was created (with id)
    */
 
   addOne(body) {
@@ -54,16 +56,13 @@ class Words{
     return newWord;
   }
 
-
   getOneRandom() {
     const words = parse(this.jsonDbPath, this.defaultItems);
- 
-    let randomId = Math.floor(Math.random() * (words.length));
+
+    let randomId = Math.floor(Math.random() * words.length);
 
     return words[randomId];
   }
- 
-
 }
 
 module.exports = { Words };

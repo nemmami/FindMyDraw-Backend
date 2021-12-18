@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { parse, serialize } = require("../utils/json");
 var escape = require("escape-html");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const jwtSecret = "ilovemydraw!";
 const LIFETIME_JWT = 24 * 60 * 60 * 1000; // in ms : 24 * 60 * 60 * 1000 = 24h
 
@@ -13,7 +13,7 @@ const saltRounds = 10;
 const defaultItems = [
   {
     username: "admin",
-    password: "$2b$10$RqcgWQT/Irt9MQC8UfHmjuGCrQkQNeNcU6UtZURdSB/fyt6bMWARa",//"admin",
+    password: "$2b$10$RqcgWQT/Irt9MQC8UfHmjuGCrQkQNeNcU6UtZURdSB/fyt6bMWARa", //"admin",
   },
 ];
 
@@ -133,7 +133,7 @@ class Users {
   changeSocketIdRoomId(username, socketId, roomId) {
     const items = parse(this.jsonDbPath, this.defaultItems);
     let user = this.getOneByUsername(username);
-    
+
     let usernameU = user.username;
     let passwordU = user.password;
     let socketIdU = socketId;
@@ -143,7 +143,7 @@ class Users {
       username: usernameU,
       password: passwordU,
       socketId: socketIdU,
-      roomId: roomIdU
+      roomId: roomIdU,
     };
 
     //this.deleteOne(username);
@@ -156,12 +156,14 @@ class Users {
 
   getUserBySocketId(socketIdentifiant) {
     const items = parse(this.jsonDbPath, this.defaultItems);
-    const foundIndex = items.findIndex((item) => item.socketId === socketIdentifiant);
+    const foundIndex = items.findIndex(
+      (item) => item.socketId === socketIdentifiant
+    );
     if (foundIndex < 0) return;
     return items[foundIndex];
   }
 
- /**
+  /**
    * Authenticate a user and generate a token if the user credentials are OK
    * @param {*} username
    * @param {*} password
@@ -222,11 +224,11 @@ class Users {
     return authenticatedUser;
   }
 
-     formatMessage(username, txt){
-      return{
-          username,
-          txt
-      }
+  formatMessage(username, txt) {
+    return {
+      username,
+      txt,
+    };
   }
 }
 

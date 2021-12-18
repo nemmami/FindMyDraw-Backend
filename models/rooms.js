@@ -119,7 +119,7 @@ class Rooms {
     if (present === false) {
       // on recup toutes les info sur la room
       let idR = room.id;
-      let nbPlayersR = room.nbPlayers
+      let nbPlayersR = room.nbPlayers;
       let nbRoundR = room.nbRound;
       let playersR = room.players;
       let hostR = room.host;
@@ -136,7 +136,15 @@ class Rooms {
 
       // on met à jour la room
       this.deleteOne(id);
-      return this.addRoomById(idR, nbPlayersR, nbRoundR, playersR, hostR, winnerR, openR);
+      return this.addRoomById(
+        idR,
+        nbPlayersR,
+        nbRoundR,
+        playersR,
+        hostR,
+        winnerR,
+        openR
+      );
     }
   }
 
