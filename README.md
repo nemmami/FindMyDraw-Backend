@@ -1,6 +1,6 @@
 # FindMyDraw - an online Pictionnary
 
-Backend made NodeJS
+Backend made in NodeJS
 
 ## Available Commands
 | Command | Description |
