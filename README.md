@@ -1,5 +1,6 @@
-# PROJECT JS BACKEND 
-## FRINDMYDRAW
+# FindMyDraw - an online Pictionnary
+
+Backend made NodeJS
 
 ## Available Commands
 | Command | Description |
